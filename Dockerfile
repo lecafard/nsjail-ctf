@@ -18,10 +18,7 @@ RUN git clone https://github.com/google/nsjail.git /nsjail && cd /nsjail && make
 
 FROM ubuntu:20.04
 RUN apt-get -y update && \
-    apt-get install -y libprotobuf17 libnl-route-3-200 python3 && \
+    apt-get install -y libprotobuf17 libnl-route-3-200 python3 sudo && \
     rm -rf /var/lib/apt/lists/*
 COPY --from=build /nsjail/nsjail /usr/bin/nsjail
 RUN useradd -r -u 1000 ctf
-USER ctf
-ENTRYPOINT ["/usr/bin/nsjail"]
-CMD ["--config", "/home/ctf/nsjail.cfg"]
